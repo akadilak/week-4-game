@@ -1,0 +1,282 @@
+var characterSelected = false;
+var defenderSelected = false;
+var character = {};
+var defender = {};
+var enemiesDefeated = 0;
+gameOver = false;
+
+var obiWanKenobi = {
+  name: "Obi-Wan Kenobi",
+  health: 120,
+  baseAttack: 8,
+  attack: 8
+};
+
+var lukeSkywalker = {
+  name: "Luke Skywalker",
+  health: 100,
+  baseAttack: 5,
+  attack: 5
+};
+
+var darthVader = {
+  name: "Darth Vader",
+  health: 150,
+  baseAttack: 20,
+  attack: 20
+};
+
+var darthMaul = {
+  name: "Darth Maul",
+  health: 180,
+  baseAttack: 25,
+  attack: 25
+};
+
+
+// Initializes character value from the global 
+function initializeCharacter(chosenCharacter) {
+  character.name = chosenCharacter.name;
+  character.health = chosenCharacter.health;
+  character.baseAttack = chosenCharacter.baseAttack;
+  character.attack = chosenCharacter.attack;
+}
+
+// Initializes enemy's value from the global 
+function initializeDefender(chosenDefender) {
+  defender.name = chosenDefender.name;
+  defender.health = chosenDefender.health;
+  defender.baseAttack = chosenDefender.baseAttack;
+  defender.attack = chosenDefender.attack;
+}
+
+// Move the remaining characters to the enemies section
+function moveToEnemies() {
+  $(".available-character").removeClass("available-character").addClass("enemy-character");
+  $("#enemies-available").append($(".enemy-character"));
+}
+
+// Reset game
+function resetGame() {
+  // Reset all the health values to the original
+  $("#obi-wan-kenobi").children(".health").html(obiWanKenobi.health);
+  $("#luke-skywalker").children(".health").html(lukeSkywalker.health);
+  $("#darth-vader").children(".health").html(darthVader.health);
+  $("#darth-maul").children(".health").html(darthMaul.health);
+
+  $(".character-image").removeClass("character-selection enemy-character defender-character").addClass("available-character");
+  var available = $(".available-character").show();
+  $("#characters").html(available);
+
+  $("#game-message").empty();
+  $("#restart").hide();
+
+  characterSelected = false;
+  defenderSelected = false;
+  enemiesDefeated = 0;
+  gameOver = false;
+
+  character = {};
+  defender = {};
+}
+
+
+// Run Javascript when the HTML has finished loading
+$(document).ready(function() {
+
+  // Hide the "Restart" button on document load
+  $("#restart").hide();
+
+  // Determine which character the user has clicked
+  $("#obi-wan-kenobi").on("click", function () {
+    console.log("Obi-Wan Kenobi is selected");
+
+    // User is choosing the character
+    if(characterSelected == false) {
+      $("#game-message").empty();
+
+      // Set the user's character
+      initializeCharacter(obiWanKenobi);
+      characterSelected = true;
+
+      // Display the chosen character
+      $("#obi-wan-kenobi").removeClass("available-character").addClass("character-selection");
+      $("#character-selection").append(this);
+
+      // Move the remaining characters to the enemies section
+      moveToEnemies();
+    } else if ((characterSelected == true) && (defenderSelected == false)) {
+      // User is choosing the defender
+      if($("#obi-wan-kenobi").hasClass("enemy-character")) {
+        $("#game-message").empty();
+
+        // Set the user's enemy
+        initializeDefender(obiWanKenobi);
+        defenderSelected = true;
+
+        // Add the character to the defender section
+        $("#obi-wan-kenobi").removeClass("enemy-character").addClass("defender-character");
+        $("#defender-section").append(this);
+      }
+    }
+  });
+
+  $("#luke-skywalker").on("click", function () {
+    console.log("Luke Skywalker is selected");
+
+    // User is choosing the character
+    if(characterSelected == false) {
+      $("#game-message").empty();
+
+      // Set the user's character
+      initializeCharacter(lukeSkywalker);
+      characterSelected = true;
+
+      // Display the chosen character
+      $("#luke-skywalker").removeClass("available-character").addClass("character-selection");
+      $("#character-selection").append(this);
+
+      // Move the remaining characters to the enemies section
+      moveToEnemies();
+    } else if ((characterSelected == true) && (defenderSelected == false)) {
+      // User is choosing the defender
+      if($("#luke-skywalker").hasClass("enemy-character")) {
+        $("#game-message").empty();
+
+        // Set the user's enemy
+        initializeDefender(lukeSkywalker);
+        defenderSelected = true;
+
+        // Add the character to the defender section 
+        $("#luke-skywalker").removeClass("enemy-character").addClass("defender-character");
+        $("#defender-section").append(this);
+      }
+    }
+  });
+
+  $("#darth-vader").on("click", function () {
+    console.log("Darth Vader is selected");
+
+    // User is choosing the character
+    if(characterSelected == false) {
+      $("#game-message").empty();
+
+      // Set the user's character
+      initializeCharacter(darthVader);
+      characterSelected = true;
+
+      // Display the chosen character
+      $("#darth-vader").removeClass("available-character").addClass("character-selection");
+      $("#character-selection").append(this);
+
+      // Move the remaining characters to the enemies section
+      moveToEnemies();
+    } else if ((characterSelected == true) && (defenderSelected == false)) {
+      // User is choosing the defender
+      if($("#darth-vader").hasClass("enemy-character")) {
+        $("#game-message").empty();
+
+        // Set the user's enemy
+        initializeDefender(darthVader);
+        defenderSelected = true;
+
+        // Add the character to the defender section 
+        $("#darth-vader").removeClass("enemy-character").addClass("defender-character");
+        $("#defender-section").append(this);
+      }
+    }
+  });
+
+  $("#darth-maul").on("click", function () {
+    console.log("Darth Maul is selected");
+
+    // User is choosing the character
+    if(characterSelected == false) {
+      $("#game-message").empty();
+
+      // Set the user's character
+      initializeCharacter(darthMaul);
+      characterSelected = true;
+
+      // Display the chosen character
+      $("#darth-maul").removeClass("available-character").addClass("character-selection");
+      $("#character-selection").append(this);
+
+      // Move the remaining characters to the enemies section
+      moveToEnemies();
+    } else if ((characterSelected == true) && (defenderSelected == false)) {
+      // User is choosing the defender
+      if($("#darth-maul").hasClass("enemy-character")) {
+        $("#game-message").empty();
+
+        // Set the user's enemy
+        initializeDefender(darthMaul);
+        defenderSelected = true;
+
+        // Add the character to the defender section 
+        $("#darth-maul").removeClass("enemy-character").addClass("defender-character");
+        $("#defender-section").append(this);
+      }
+    }
+  });
+
+  $("#attack").on("click", function() {
+    console.log("Attack selected");
+
+    console.log("character = " + JSON.stringify(character));
+    console.log("defender = " + JSON.stringify(defender));
+
+    // User is ready to attack the defender
+    if (characterSelected && defenderSelected && !gameOver) {
+      // User attacks the defender and decreases the defender's health points
+      defender.health = defender.health - character.attack;
+      $(".defender-character").children(".health").html(defender.health);
+      $("#game-message").html("<p>You attacked " + defender.name + " for a damage of " + character.attack + ".<p>");
+
+      // User's attack power increases
+      character.attack = character.attack + character.baseAttack;
+
+      // If defender is still alive, they counter attack the user
+      if (defender.health > 0) {
+        character.health = character.health - defender.baseAttack;
+        $(".character-selection").children(".health").html(character.health);
+
+        // Check if the user survives the attack
+        if (character.health > 0) {
+          $("#game-message").append("<p>" + defender.name + " attacked you back for a damage of " + defender.baseAttack + ".</p>");
+        } else {
+          gameOver = true;
+          $("#game-message").html("<p>You were defeated</p><p>Would you like to play again?</p>");
+          $("#restart").show();
+        }
+      } else {
+        // Defender is defeated
+        enemiesDefeated++;
+        defenderSelected = false;
+        $("#game-message").html("<p>You have defeated " + defender.name + ". Choose another opponent.</p>");
+        $(".defender-character").hide();
+
+        // Check if the user has won the game
+        if (enemiesDefeated === 3) {
+          gameOver = true;
+          $("#game-message").html("<p>You have won the game!!!</p><p>Would you like to play again?</p>");
+          $("#restart").show();
+        }
+      }
+    } else if (!characterSelected && !gameOver) {
+      $("#game-message").html("<p>You must first select your game character.</p>");
+    } else if (!defenderSelected && !gameOver) {
+      $("#game-message").html("<p>You must choose an opponent to fight.</p>");
+    }
+
+    console.log("character = " + JSON.stringify(character));
+    console.log("defender = " + JSON.stringify(defender));
+  });
+
+  $("#restart").on("click", function() {
+    console.log("Restart selected");
+
+    resetGame();
+  });
+
+}); // Main routine
